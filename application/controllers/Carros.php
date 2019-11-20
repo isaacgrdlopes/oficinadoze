@@ -7,8 +7,8 @@ class Carros extends CI_Controller
     public function index()
     {
         $this->load->model('Carros_Model');
-        if ($this->session->has_userdata('login')) { //Ou o dado que TEM de existir pra estar logado
-            $config = array(
+        if ($this->session->has_userdata('login')) { //Valida Usuario Logado
+            $config = array( //Configuração da Paginação.
                 "base_url" => base_url('/carros/p'),
                 "per_page" => 20,
                 "num_links" => 5,
@@ -32,7 +32,7 @@ class Carros extends CI_Controller
                 "cur_tag_close" => "</a></li>",
                 "num_tag_open" => "<li>",
                 "num_tag_close" => "</li>"
-            );
+            ); //Fim da Configuração da Paginação.
 
             $this->pagination->initialize($config);
 
@@ -51,55 +51,91 @@ class Carros extends CI_Controller
 
     public function novo()
     {
-        $pacote = array(
-            "pagina" => "carroNovo.php",
-        );
-        $this->load->view('index', $pacote);
-    }
+        $this->load->helper(array('form', 'url'));
 
-    public function salvarNovo()
-    {
-        //var_dump($_POST);
-        $dados = array(
-            'modelo' => $_POST['modelo'],
-            'marca' => $_POST['marca'],
-            'ano' => $_POST['ano'],
-            'placa' => $_POST['placa'],
-
+        $this->form_validation->set_rules('modelo', 'Modelo', 'required');
+        $this->form_validation->set_rules('marca', 'Marca', 'required');
+        $this->form_validation->set_rules('ano', 'Ano', 'required|min_length[4]|max_length[4]');
+        $this->form_validation->set_rules(
+            'placa',
+            'Placa',
+            'required|min_length[8]|max_length[8]',
+            array(
+                'min_length' => 'O campo Placa deve ser informado no formato AAA-0000.',
+                'max_length' => 'O campo Placa deve ser informado no formato AAA-0000.'
+            )
         );
 
-        $this->load->model("Carros_Model");
-        $this->Carros_Model->salvarNew($dados);
+        if ($this->form_validation->run() == FALSE) {
+            $pacote = array(
+                "pagina" => "carroNovo.php",
+            );
+            $this->load->view('index', $pacote);
+        } else {
+            $dados = array(
+                'modelo' => $_POST['modelo'],
+                'marca' => $_POST['marca'],
+                'ano' => $_POST['ano'],
+                'placa' => $_POST['placa'],
 
-        redirect('carros');
+            );
+
+            $this->load->model("Carros_Model");
+            $this->Carros_Model->salvarNew($dados);
+
+            redirect('carros');
+        }
     }
 
     public function alterar($identificador)
     {
-        $this->load->model("Carros_Model");
 
-        $carro = $this->Carros_Model->buscarId($identificador);
-        $pacote = array(
-            "carro" => $carro,
-            "pagina" => "carroAlterar.php"
+        $this->load->helper(array('form', 'url'));
+
+        $this->form_validation->set_rules('modelo', 'Modelo', 'required');
+        $this->form_validation->set_rules('marca', 'Marca', 'required');
+        $this->form_validation->set_rules('ano', 'Ano', 'required|min_length[4]|max_length[4]');
+        $this->form_validation->set_rules(
+            'placa',
+            'Placa',
+            'required|min_length[8]|max_length[8]',
+            array(
+                'min_length' => 'O campo Placa deve ser informado no formato AAA-0000.',
+                'max_length' => 'O campo Placa deve ser informado no formato AAA-0000.'
+            )
         );
 
-        $this->load->view('index', $pacote);
-    }
-
-    //controller
-    public function salvarAlterar()
-    {
-        $idcar = $_POST['idcar'];
-        $modelo = $_POST['modelo'];
-        $marca = $_POST['marca'];
-        $ano = $_POST['ano'];
-        $placa = $_POST['placa'];
-
         $this->load->model("Carros_Model");
-        $this->Carros_Model->salvarAlterar($idcar, $modelo, $marca, $ano, $placa);
+        $carro = $this->Carros_Model->buscarId($identificador);
 
-        redirect("carros");
+        if ($this->form_validation->run() == FALSE) {
+            $carro2 = $carro;
+            $pacote = array(
+                "carro" => $carro2,
+                "pagina" => "carroAlterar.php"
+            );
+
+            $this->load->view('index', $pacote);
+        } else {
+
+            $pacote = array(
+                "carro" => $carro2,
+                "pagina" => "carroAlterar.php"
+            );
+
+            $this->load->view('index', $pacote);
+
+            $idcar = $_POST['idcar'];
+            $modelo = $_POST['modelo'];
+            $marca = $_POST['marca'];
+            $ano = $_POST['ano'];
+            $placa = $_POST['placa'];
+
+            $this->load->model("Carros_Model");
+            $this->Carros_Model->salvarAlterar($idcar, $modelo, $marca, $ano, $placa);
+
+            redirect("carros");
+        }
     }
 
     public function excluirContato($idcar)

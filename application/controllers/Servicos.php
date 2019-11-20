@@ -51,30 +51,42 @@ class Servicos extends CI_Controller
 
     public function novo()
     {
-        $pacote = array(
-            "pagina" => "servicoNovo.php",
-            'options_proprietarios' => $this->selectProprietarios(),
-            'options_carros' => $this->selectCarros()
+        $this->form_validation->set_rules('descricao', 'Descrição', 'required');
+        $this->form_validation->set_rules('preco', 'Preço', 'required');
+        $this->form_validation->set_rules(
+            'dataentrega',
+            'Data de Entrega',
+            'required|min_length[10]|max_length[10]',
+            array(
+                'min_length' => 'O campo Data de Entrega deve ser informado no formato 00/00/0000.',
+                'max_length' => 'O campo Data de Entrega deve ser informado no formato 00/00/0000'
+            )
         );
-        $this->load->view('index', $pacote);
-    }
+        $this->form_validation->set_rules('idcar', 'Carro', 'required');
+        $this->form_validation->set_rules('idpro', 'Cliente', 'required');
 
-    public function salvarNovo()
-    {
-        //var_dump($_POST);
-        $dados = array(
-            'descricao' => $_POST['descricao'],
-            'preco' => $_POST['preco'],
-            'dataentrega' => $_POST['dataentrega'],
-            'idcar' => $_POST['idcar'],
-            'idpro' => $_POST['idpro']
+        if ($this->form_validation->run() == FALSE) {
+            $pacote = array(
+                "pagina" => "servicoNovo.php",
+                'options_proprietarios' => $this->selectProprietarios(),
+                'options_carros' => $this->selectCarros()
+            );
+            $this->load->view('index', $pacote);
+        } else {
+            $dados = array(
+                'descricao' => $_POST['descricao'],
+                'preco' => $_POST['preco'],
+                'dataentrega' => $_POST['dataentrega'],
+                'idcar' => $_POST['idcar'],
+                'idpro' => $_POST['idpro']
 
-        );
+            );
 
-        $this->load->model("Servicos_Model");
-        $this->Servicos_Model->salvarNew($dados);
+            $this->load->model("Servicos_Model");
+            $this->Servicos_Model->salvarNew($dados);
 
-        redirect('servicos');
+            redirect('servicos');
+        }
     }
 
     public function alterar($identificador)
@@ -118,26 +130,28 @@ class Servicos extends CI_Controller
         }
     }
 
-    public function selectProprietarios(){
+    public function selectProprietarios()
+    {
         $this->load->model('Servicos_Model');
-        
+
         $option = "<option name='idpro' value=''>Selecione o Cliente</option>";
         $propri = $this->Servicos_Model->getProprietarios();
 
-        foreach($propri -> result() as $propr){
+        foreach ($propri->result() as $propr) {
             $option .= "<option name='idpro' value='{$propr->idpro}'>{$propr->nome}</option>";
         }
 
         return $option;
     }
 
-    public function selectCarros(){
+    public function selectCarros()
+    {
         $this->load->model('Servicos_Model');
-        
+
         $option = "<option name='idcar' value=''>Selecione o Carro</option>";
         $carros = $this->Servicos_Model->getCarros();
 
-        foreach($carros -> result() as $carro){
+        foreach ($carros->result() as $carro) {
             $option .= "<option name='idcar' value='{$carro->idcar}'>{$carro->modelo}</option>";
         }
 

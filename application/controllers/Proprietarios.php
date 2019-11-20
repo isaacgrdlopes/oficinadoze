@@ -51,28 +51,57 @@ class Proprietarios extends CI_Controller
 
     public function novo()
     {
-        $pacote = array(
-            "pagina" => "proprietarioNovo.php",
+        $this->load->helper(array('form', 'url'));
+
+        $this->form_validation->set_rules('nome', 'Nome', 'required');
+        $this->form_validation->set_rules(
+            'telefone',
+            'Telefone',
+            'required|min_length[14]|max_length[14]',
+            array(
+                'min_length' => 'O campo Telefone deve ser informado no formato (00) 0000-0000.',
+                'max_length' => 'O campo Telefone deve ser informado no formato (00) 0000-0000.'
+            )
         );
-        $this->load->view('index', $pacote);
-    }
-
-    public function salvarNovo()
-    {
-        //var_dump($_POST);
-        $dados = array(
-            'nome' => $_POST['nome'],
-            'telefone' => $_POST['telefone'],
-            'celular' => $_POST['celular'],
-            'cpf' => $_POST['cpf'],
-            'datanasc' => $_POST['datanasc']
-
+        $this->form_validation->set_rules(
+            'celular',
+            'Celular',
+            'required|min_length[15]|max_length[15]',
+            array(
+                'min_length' => 'O campo Celular deve ser informado no formato (00) 00000-0000.',
+                'max_length' => 'O campo Celular deve ser informado no formato (00) 00000-0000.'
+            )
+        );
+        $this->form_validation->set_rules(
+            'cpf',
+            'CPF',
+            'required|min_length[14]|max_length[14]',
+            array(
+                'min_length' => 'O campo CPF deve ser informado no formato XXX.XXX.XXX-XX.',
+                'max_length' => 'O campo CPF deve ser informado no formato XXX.XXX.XXX-XX.'
+            )
         );
 
-        $this->load->model("Proprietarios_Model");
-        $this->Proprietarios_Model->salvarNew($dados);
+        if ($this->form_validation->run() == FALSE) {
+            $pacote = array(
+                "pagina" => "proprietarioNovo.php",
+            );
+            $this->load->view('index', $pacote);
+        } else {
+            $dados = array(
+                'nome' => $_POST['nome'],
+                'telefone' => $_POST['telefone'],
+                'celular' => $_POST['celular'],
+                'cpf' => $_POST['cpf'],
+                'datanasc' => $_POST['datanasc']
 
-        redirect('proprietarios');
+            );
+
+            $this->load->model("Proprietarios_Model");
+            $this->Proprietarios_Model->salvarNew($dados);
+
+            redirect('proprietarios');
+        }
     }
 
     public function alterar($identificador)

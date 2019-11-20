@@ -78,7 +78,7 @@
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" href="login/logout" data-original-title="Logout">
+            <a data-toggle="tooltip" data-placement="top" href="/login/logout" data-original-title="Logout">
               <span class="fa fa-power-off" aria-hidden="true"></span>
             </a>
           </div>
@@ -151,7 +151,6 @@
   <!-- Custom Theme Scripts -->
   <script src="<?php echo base_url(); ?>/public/build/js/custom.min.js"></script>
   <script src="<?php echo base_url(); ?>/public/build/js/jquery.mask.js"></script>
-  <script type="text/javascript" src="<?php echo base_url(); ?>/public/build/js/validacampos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </body>
-
 </html>

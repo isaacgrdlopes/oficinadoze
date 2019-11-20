@@ -6,7 +6,7 @@
         </div>
         <div class="x_content">
             <br>
-            <form name='form' id="form" class="form-horizontal form-label-left" method="POST" action="/servicos/salvarAlterar">
+            <form name='form' id="form_servico" class="form-horizontal form-label-left" method="POST" action="/servicos/salvarAlterar">
                 <input type='hidden' name='idord' value='<?php echo $servico[0]->idord; ?>' />
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Descrição: <span>*</span></label>
@@ -49,51 +49,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $("#form").validate({
-        rules: {
-            descricao: {
-                required: true,
-                maxlength: 60,
-                minlength: 10
-            },
-            preco: {
-                required: true,
-            },
-            dataentrega: {
-                required: true,
-                minlength: 10,
-                maxlength: 10
-            },
-            idcar: {
-                required: true,
-
-            },
-            idpro: {
-                required: true,
-            }
-        },
-        messages: {
-            descricao: {
-                required: "Informe o serviço."
-            },
-            preco: {
-                required: "Informe o valor do serviço."
-            },
-            dataentrega: {
-                required: "Informe a data de entrega.",
-                minlength: "Informe a data no Formato: XX/XX/XXXX",
-                maxlength: "Informe a data no Formato: XX/XX/XXXX"
-            },
-            idcar: {
-                required: "Informe o carro."
-            },
-            idpro: {
-                required: "Informe o cliente."
-            }
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-</script>
+<script type="text/javascript" src="<?php echo base_url(); ?>/public/build/js/validaCadastros.js"></script>

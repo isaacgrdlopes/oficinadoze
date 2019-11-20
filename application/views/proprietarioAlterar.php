@@ -6,7 +6,7 @@
         </div>
         <div class="x_content">
             <br>
-            <form name='form' id="form" class="form-horizontal form-label-left" method="POST" action="/proprietarios/salvarAlterar">
+            <form name='form' id="form_cliente" class="form-horizontal form-label-left" method="POST" action="/proprietarios/salvarAlterar">
                 <input type='hidden' name='id' value='<?php echo $proprietario[0]->idpro; ?>' />
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nome:<span>*</span></label>
@@ -50,60 +50,4 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $("#form").validate({
-        rules: {
-            nome: {
-                required: true,
-                minlength: 5
-            },
-            cpf: {
-                required: true,
-                minlength: 11,
-                maxlength: 14
-            },
-            telefone: {
-                required: true,
-                minlength: 14,
-                maxlength: 14
-            },
-            celular: {
-                required: true,
-                minlength: 15,
-                maxlength: 15
-
-            },
-            datanasc:{
-                minlength:10,
-                maxlength:10
-            }
-        },
-        messages: {
-            nome: {
-                required: "Informe o nome."
-            },
-            cpf: {
-                required: "Informe o cpf."
-            },
-            telefone: {
-                required: "Informe o telefone.",
-                minlength: "Informe no minímo 10 caracteres.",
-                maxlength: "Informe no máximo 10 caracteres."
-            },
-            celular: {
-                required: "Informe o celular.",
-                minlength: "Informe no minímo 11 caracteres.",
-                maxlength: "Informe no máximo 11 caracteres."
-            },
-            datanasc:{
-                required: "Informe a Data de Nascimento.",
-                minlength: "Informe a data no Formato: XX/XX/XXXX",
-                maxlength: "Informe a data no Formato: XX/XX/XXXX"
-            }
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-</script>
+<script type="text/javascript" src="<?php echo base_url(); ?>/public/build/js/validaCadastros.js"></script>
