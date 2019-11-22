@@ -1,6 +1,3 @@
-<?php
-    echo $_SESSION['idcar'];
-?>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
@@ -41,8 +38,8 @@
                 </div>
             <?php endif; ?>
 
-            <?php $formulario = array('action' => '', 'class' => 'form-horizontal form-label-left', 'id' => 'form_carroalterar', 'method' => 'POST');
-            echo form_open("/carros/alterar/", $formulario); ?>
+            <?php $formulario = array('action' => 'salvarAlterar', 'class' => 'form-horizontal form-label-left', 'id' => 'form_carroalterar', 'method' => 'POST');
+            echo form_open('/carros/salvarAlterar/', $formulario); ?>
 
             <input type='hidden' name='idcar' id="idcar" value='<?php echo $carro[0]->idcar; ?>' />
 

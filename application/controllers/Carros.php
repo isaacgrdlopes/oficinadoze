@@ -87,11 +87,23 @@ class Carros extends CI_Controller
         }
     }
 
-    public function alterar($idcar = FALSE)
+    public function alterar($identificador)
     {
-        $_SESSION['idcar'] = $idcar;
-
         $this->load->model("Carros_Model");
+
+        $carro = $this->Carros_Model->buscarId($identificador);
+        $pacote = array(
+            "carro" => $carro,
+            "pagina" => "carroAlterar.php"
+        );
+
+        $this->load->view('index', $pacote);
+    }
+
+    //controller
+    public function salvarAlterar()
+    {
+
         $this->load->helper(array('form', 'url'));
 
         $this->form_validation->set_rules('modelo', 'Modelo', 'required');
@@ -106,24 +118,18 @@ class Carros extends CI_Controller
                 'max_length' => 'O campo Placa deve ser informado no formato AAA-0000.'
             )
         );
-        if ($this->form_validation->run() == FALSE) { // Verifica se as validações são falsas se sim recarrega ela com os erros.
-            $carro = $this->Carros_Model->buscarId($idcar = $_SESSION['idcar']);
-            $pacote = array(
-                "carro" => $carro,
-                "pagina" => "carroAlterar.php"
-            );
-            $this->load->view('index', $pacote);
-        } else { // se não insere no banco.
-            $idcar = $_POST['idcar'];
-            $modelo = $_POST['modelo'];
-            $marca = $_POST['marca'];
-            $ano = $_POST['ano'];
-            $placa = $_POST['placa'];
+        if ($this->form_validation->run() == TRUE){
+        $idcar = $_POST['idcar'];
+        $modelo = $_POST['modelo'];
+        $marca = $_POST['marca'];
+        $ano = $_POST['ano'];
+        $placa = $_POST['placa'];
 
-            $this->load->model("Carros_Model");
-            $this->Carros_Model->salvarAlterar($idcar, $modelo, $marca, $ano, $placa);
-
-            redirect("carros");
+        $this->load->model("Carros_Model");
+        $this->Carros_Model->salvarAlterar($idcar, $modelo, $marca, $ano, $placa);
+        redirect("carros");
+        }else{
+            redirect('carros');
         }
     }
 
