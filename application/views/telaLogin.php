@@ -1,14 +1,14 @@
 <div class="animate form login_form">
     <section class="login_content">
-        <?php $formulario = array('action' => '/login/acao', 'id' => 'form_login', 'method' => 'POST');
+        <?php $formulario = array('id' => 'form_login', 'method' => 'POST');
         echo form_open("/login", $formulario); ?>
 
         <h1>Login</h1>
         <div>
-            <input name="login" id="login" type="text" class="form-control" placeholder="Usuário" />
+            <input name="login" id="login" type="text" value="<?php echo set_value(''); ?>" class="form-control" placeholder="Usuário" />
         </div>
         <div>
-            <input name="senha" id="senha" type="password" class="form-control" placeholder="Senha" />
+            <input name="senha" id="senha" type="password" value="<?php echo set_value(''); ?>" class="form-control" placeholder="Senha" />
         </div>
         <div>
             <button type="submit" class="btn btn-default submit">Login</button>
@@ -47,4 +47,4 @@
     </section>
 </div>
 </div>
-<script type="text/javascript" src="<?php echo base_url(); ?>/public/build/js/validaFormLogin.js"></script>
+<!-- <script type="text/javascript" src="<?php echo base_url(); ?>/public/build/js/validaFormLogin.js"></script> -->
