@@ -103,7 +103,8 @@
       <!-- footer content -->
       <footer>
         <div class="pull-right">
-          ©2019 All Rights Reserved. Isaac Lopes! Privacy and Terms
+        <p>©2019 <a href="https://www.ite.edu.br/">Instituição Toledo de Ensino</a></p>
+        <p>Desenvolvido por: Isaac Lopes | Alex Moraes | Lucas Teixeira</p>
         </div>
         <div class="clearfix">
         </div>
