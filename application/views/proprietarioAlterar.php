@@ -6,7 +6,10 @@
         </div>
         <div class="x_content">
             <br>
-            <form name='form' id="form_cliente" class="form-horizontal form-label-left" method="POST" action="/proprietarios/salvarAlterar">
+            <?php $formulario = array('action' => '/proprietarios/salvarAlterar', 'class' => 'form-horizontal form-label-left', 'id' => 'form_cliente', 'method' => 'POST');
+            echo form_open("/proprietarios/salvarAlterar", $formulario); ?>
+
+
                 <input type='hidden' name='id' value='<?php echo $proprietario[0]->idpro; ?>' />
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nome:<span>*</span></label>
@@ -45,8 +48,8 @@
                         <button name='button' id='button' type='submit' class='btn btn-success'>Alterar</button>
                     </div>
                 </div>
-
-            </form>
+           <!-- </form> -->
+           <?php echo form_close(); ?>
         </div>
     </div>
 </div>

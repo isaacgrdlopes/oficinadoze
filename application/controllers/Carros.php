@@ -99,8 +99,7 @@ class Carros extends CI_Controller
 
         $this->load->view('index', $pacote);
     }
-
-    //controller
+    
     public function salvarAlterar()
     {
 

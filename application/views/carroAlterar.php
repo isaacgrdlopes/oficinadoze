@@ -6,40 +6,9 @@
         </div>
         <div class="x_content">
             <br>
-            <!-- Exibe Erros -->
-            <?php if (form_error('idcar')) : ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php echo form_error('idcar'); ?>
-                </div>
-            <?php endif; ?>
-            <?php if (form_error('modelo')) : ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php echo form_error('modelo'); ?>
-                </div>
-            <?php endif; ?>
-            <?php if (form_error('marca')) : ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php echo form_error('marca'); ?>
-                </div>
-            <?php endif; ?>
-            <?php if (form_error('ano')) : ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php echo form_error('ano'); ?>
-                </div>
-            <?php endif; ?>
-            <?php if (form_error('placa')) : ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <?php echo form_error('placa'); ?>
-                </div>
-            <?php endif; ?>
 
-            <?php $formulario = array('action' => 'salvarAlterar', 'class' => 'form-horizontal form-label-left', 'id' => 'form_carroalterar', 'method' => 'POST');
-            echo form_open('/carros/salvarAlterar/', $formulario); ?>
+            <?php $formulario = array('action' => '/carros/salvarAlterar', 'class' => 'form-horizontal form-label-left', 'id' => 'form_carro', 'method' => 'POST');
+            echo form_open("/carros/salvarAlterar", $formulario); ?>
 
             <input type='hidden' name='idcar' id="idcar" value='<?php echo $carro[0]->idcar; ?>' />
 
@@ -76,9 +45,9 @@
 
                 </div>
             </div>
-            <!-- </form> -->
+           <!-- </form> -->
             <?php echo form_close(); ?>
         </div>
     </div>
 </div>
-<!-- <script type="text/javascript" src="<?php echo base_url(); ?>/public/build/js/validaCadastros.js"></script> -->
+<script type="text/javascript" src="<?php echo base_url(); ?>/public/build/js/validaCadastros.js"></script>

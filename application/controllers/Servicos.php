@@ -107,6 +107,18 @@ class Servicos extends CI_Controller
 
     public function salvarAlterar()
     {
+        $this->form_validation->set_rules('descricao', 'Descrição', 'required');
+        $this->form_validation->set_rules('preco', 'Preço', 'required');
+        $this->form_validation->set_rules(
+            'dataentrega',
+            'Data de Entrega',
+            'required|min_length[10]|max_length[10]',
+            array(
+                'min_length' => 'O campo Data de Entrega deve ser informado no formato 00/00/0000.',
+                'max_length' => 'O campo Data de Entrega deve ser informado no formato 00/00/0000'
+            )
+        );
+        if ($this->form_validation->run() == TRUE) {
         $idord = $_POST['idord'];
         $descricao = $_POST['descricao'];
         $preco = $_POST['preco'];
@@ -118,6 +130,9 @@ class Servicos extends CI_Controller
         $this->Servicos_Model->salvarAlterar($idord, $descricao, $preco, $dataentrega, $idcar, $idpro);
 
         redirect("servicos");
+        }else{
+            redirect("servicos");
+        }
     }
 
     public function excluirContato($idord)
