@@ -47,7 +47,7 @@ class Carros_Model extends CI_Model
     {
         $sql = "SELECT * FROM carros WHERE idcar = $idcar";
         $retorno = $this->db->query($sql);
-
+        
         return $retorno->result();
     }
 

@@ -32,83 +32,14 @@
 
 <body class="login">
   <div>
-    <a class="hiddenanchor" id="signup"></a>
-    <a class="hiddenanchor" id="signin"></a>
-
     <div class="login_wrapper">
-      <div class="animate form login_form">
-        <section class="login_content">
-          <form id="form_login" action="login/acao" method="POST">
-            <h1>Login</h1>
-            <div>
-              <input name="login" id="login" type="text" class="form-control" placeholder="Usuário" />
-            </div>
-            <div>
-              <input name="senha" id="senha" type="password" class="form-control" placeholder="Senha" />
-            </div>
-            <div>
-              <button type="submit" class="btn btn-default submit">Login</button>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="separator">
-              <p class="to_register">Novo no site?
-                <a href="#signup" class="to_register"> Cadastre-se</a>
-              </p>
-
-              <div class="clearfix"></div>
-              <br />
-
-              <div>
-                <h1><i class="fa fa-car"></i> Oficina do Zé </h1>
-                <p>©2019 All Rights Reserved. Isaac Lopes. Privacy and Terms!</p>
-              </div>
-            </div>
-          </form>
-        </section>
-      </div>
-
-      <div id="register" class="animate form registration_form">
-        <section class="login_content">
-          <form id="form_cadastro" action="login/salvarNovo" method="POST">
-            <h1>Cadastro</h1>
-            <div>
-              <input type="text" id="login_cadastro" name="login_cadastro" class="form-control" placeholder="Login" />
-            </div>
-            <div>
-              <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" />
-            </div>
-            <div>
-              <input type="password" id="senha_cadastro" name="senha_cadastro" class="form-control" placeholder="Senha" />
-            </div>
-            <div>
-              <input type="password" id="senha_cadastro1" name="senha_cadastro1" class="form-control" placeholder="Confimar Senha" />
-            </div>
-            <div>
-              <button type="submit" class="btn btn-default submit">Cadastrar</button>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="separator">
-              <p class="change_link">Já possui cadastro?
-                <a href="#signin" class="to_register"> Login </a>
-              </p>
-
-              <div class="clearfix"></div>
-              <br />
-
-              <div>
-                <h1><i class="fa fa-car"></i> Oficina do Zé </h1>
-                <p>©2019 All Rights Reserved. Isaac Lopes. Privacy and Terms!</p>
-              </div>
-            </div>
-          </form>
-        </section>
-      </div>
+      <?php
+        if (isset($pagina)) {
+          require($pagina);
+        }
+        ?>
     </div>
   </div>
 </body>
 </html>
-<script type="text/javascript" src="<?php echo base_url(); ?>/public/build/js/validaFormLogin.js"></script>
+

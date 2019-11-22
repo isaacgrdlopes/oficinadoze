@@ -46,6 +46,6 @@ class Login_Model extends CI_Model {
             'senha' => md5($this->input->post("senha_cadastro")),
             'email' => $this->input->post("email")                 
         );
-        $this->db->insert('login', $inserirNovoMembro);
+		$this->db->insert('login', $inserirNovoMembro);
     }
 }

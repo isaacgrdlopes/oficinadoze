@@ -87,9 +87,11 @@ class Carros extends CI_Controller
         }
     }
 
-    public function alterar($identificador)
+    public function alterar($idcar = FALSE)
     {
+        $_SESSION['idcar'] = $idcar;
 
+        $this->load->model("Carros_Model");
         $this->load->helper(array('form', 'url'));
 
         $this->form_validation->set_rules('modelo', 'Modelo', 'required');
@@ -104,27 +106,14 @@ class Carros extends CI_Controller
                 'max_length' => 'O campo Placa deve ser informado no formato AAA-0000.'
             )
         );
-
-        $this->load->model("Carros_Model");
-        $carro = $this->Carros_Model->buscarId($identificador);
-
-        if ($this->form_validation->run() == FALSE) {
-            $carro2 = $carro;
+        if ($this->form_validation->run() == FALSE) { // Verifica se as validações são falsas se sim recarrega ela com os erros.
+            $carro = $this->Carros_Model->buscarId($idcar = $_SESSION['idcar']);
             $pacote = array(
-                "carro" => $carro2,
+                "carro" => $carro,
                 "pagina" => "carroAlterar.php"
             );
-
             $this->load->view('index', $pacote);
-        } else {
-
-            $pacote = array(
-                "carro" => $carro2,
-                "pagina" => "carroAlterar.php"
-            );
-
-            $this->load->view('index', $pacote);
-
+        } else { // se não insere no banco.
             $idcar = $_POST['idcar'];
             $modelo = $_POST['modelo'];
             $marca = $_POST['marca'];

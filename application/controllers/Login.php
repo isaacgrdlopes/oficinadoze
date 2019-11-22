@@ -11,10 +11,19 @@ class Login extends CI_Controller
 	 */
 	public function index()
 	{
-		if ($this->session->has_userdata('login')) { //Ou o dado que TEM de existir pra estar logado
-			redirect('home');
+		$this->form_validation->set_rules('login', 'Login', 'required');
+		$this->form_validation->set_rules('senha', 'Senha', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$pacote = array(
+				'pagina' => 'telaLogin.php'
+			);
+			$this->load->view('form_login', $pacote);
+		} else {
+			if ($this->session->has_userdata('login')) { //Ou o dado que TEM de existir pra estar logado
+				redirect('home');
+			}
 		}
-		$this->load->view('form_login');
 	}
 
 	public function acao()
@@ -50,17 +59,35 @@ class Login extends CI_Controller
 		redirect('login');
 	}
 
-	public function salvarNovo()
+	public function novo()
 	{
-		$dados = array(
-			'login' => $_POST['login'],
-			'email' => $_POST['email'],
-			'senha' => $_POST['senha']
-		);
+		$this->form_validation->set_rules('login_cadastro', 'Login', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[login.email]');
+		$this->form_validation->set_rules(
+            'senha_cadastro',
+            'senha_cadastro',
+            'required|matches[confirmar_senha]',
+            array(
+                'matches' => 'Os campos Senha e Confimar Senha devem ser iguais!.',
+            )
+        );
 
-		$this->load->model("Login_Model");
-		$this->Login_Model->salvarNew($dados);
+		if ($this->form_validation->run() == FALSE) {
+			$pacote = array(
+				'pagina' => 'cadastrarUsuario.php'
+			);
+			$this->load->view('form_login', $pacote);
+		} else {
+			$dados = array(
+				'login' => $_POST['login'],
+				'email' => $_POST['email'],
+				'senha' => $_POST['senha']
+			);
 
-		redirect('Login');
+			$this->load->model("Login_Model");
+			$this->Login_Model->salvarNew($dados);
+
+			redirect('Login');
+		}
 	}
 }
