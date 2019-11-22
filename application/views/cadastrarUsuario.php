@@ -39,7 +39,7 @@
             <input type="password" id="senha_cadastro" name="senha_cadastro" value="<?php echo set_value('senha_cadastro'); ?>" class="form-control" placeholder="Senha" />
         </div>
         <div>
-            <input type="password" id="senha_cadastro1" name="senha_cadastro1" value="<?php echo set_value(''); ?>"  class="form-control" placeholder="Confimar Senha" />
+            <input type="password" id="senha_cadastro1" name="senha_cadastro1"  class="form-control" placeholder="Confimar Senha" />
         </div>
         <div>
             <button type="submit" class="btn btn-default submit">Cadastrar</button>

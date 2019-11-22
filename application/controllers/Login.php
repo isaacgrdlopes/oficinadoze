@@ -61,14 +61,7 @@ class Login extends CI_Controller
 	{
 		$this->form_validation->set_rules('login_cadastro', 'Login', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[login.email]');
-		$this->form_validation->set_rules(
-            'senha_cadastro',
-            'senha_cadastro',
-            'required|matches[senha_cadastro1]',
-            array(
-                'matches' => 'Os campos Senha e Confimar Senha devem ser iguais!.',
-            )
-        );
+		$this->form_validation->set_rules('senha_cadastro', 'senha_cadastro', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$pacote = array(
