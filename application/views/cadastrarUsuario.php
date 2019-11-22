@@ -26,7 +26,7 @@
             </div>
         <?php endif; ?>
 
-        <?php $formulario = array('action' => '', 'id' => 'form_login', 'method' => 'POST');
+        <?php $formulario = array('action' => '', 'id' => 'form_cadastro', 'method' => 'POST');
         echo form_open("/login/novo", $formulario); ?>
         <h1>Cadastro</h1>
         <div>
