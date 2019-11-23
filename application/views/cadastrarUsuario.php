@@ -30,7 +30,7 @@
         echo form_open("/login/novo", $formulario); ?>
         <h1>Cadastro</h1>
         <div>
-            <input type="text" id="login_cadastro" name="login_cadastro" value="<?php echo set_value('login'); ?>"  class="form-control" placeholder="Login" />
+            <input type="text" id="login_cadastro" name="login_cadastro" value="<?php echo set_value('login_cadastro'); ?>"  class="form-control" placeholder="Login" />
         </div>
         <div>
             <input type="email" id="email" name="email" value="<?php echo set_value('email'); ?>" class="form-control" placeholder="E-mail" />
